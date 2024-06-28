@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Home() {
+function Footer() {
     return (
         <footer>
         <div className="container">
@@ -40,4 +40,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default Footer;
