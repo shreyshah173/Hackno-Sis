@@ -1,43 +1,49 @@
-import React, { useEffect } from 'react';
-import Swiper from 'swiper';
-import 'swiper/swiper-bundle.css'; // Import Swiper styles
+import React from 'react';
+import Carousel from 'react-bootstrap/Carousel';
+import exampleImage1 from '../img/1.jpg';
+import exampleImage2 from '../img/2.jpg';  // Make sure to import other images as well
+import exampleImage3 from '../img/3.jpg';  // Make sure to import other images as well
+
 
 function Home() {
-    useEffect(() => {
-        // Initialize Swiper when component mounts
-        const swiper = new Swiper('.swiper-container', {
-            loop: true,
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-        });
-
-        // Clean up Swiper instance when component unmounts
-        return () => {
-            swiper.destroy();
-        };
-    }, []);
-
     return (
-        <div className="swiper-container main-slider">
-            <div className="swiper-wrapper">
-                <div className="swiper-slide slider-bg-position" style={{ backgroundImage: `url('img/1.jpg')` }} data-hash="slide1">
-                    <h2>It is health that is real wealth and not pieces of gold and silver</h2>
-                </div>
-                <div className="swiper-slide slider-bg-position" style={{ backgroundImage: `url('img/3.jpg')` }} data-hash="slide2">
-                    <h2>Happiness is nothing more than good health and a bad memory</h2>
-                </div>
-            </div>
-            <div className="swiper-pagination"></div>
-            <div className="swiper-button-prev"><i className="fa fa-chevron-left"></i></div>
-            <div className="swiper-button-next"><i className="fa fa-chevron-right"></i></div>
-        </div>
+      <Carousel>
+        <Carousel.Item interval={1000}>
+          <img
+            className="d-block w-100"
+            src={exampleImage1}
+            alt="First slide"
+          />
+          <Carousel.Caption>
+            <h3>First slide label</h3>
+            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item interval={500}>
+          <img
+            className="d-block w-100"
+            src={exampleImage2}
+            alt="Second slide"
+          />
+          <Carousel.Caption>
+            <h3>Second slide label</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src={exampleImage3}
+            alt="Third slide"
+          />
+          <Carousel.Caption>
+            <h3>Third slide label</h3>
+            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+      </Carousel>
     );
-}
-
-export default Home;
+  }
+  
+  export default Home;
+  
