@@ -43,7 +43,7 @@ function App() {
                     </header>
                     <main>
                         <Routes>
-                            <Route path="/" element={<><Home /> <Benefit /> <About /> <Blog /> <Video /> <Gallery /> <Contact /></>} />
+                            <Route path="/" element={<><Home setUser={setUser}/> <Benefit  user={user}/> <About /> <Blog /> <Video /> <Gallery /> <Contact /></>} />
                             <Route path="/signup" element={<Signup setUser={setUser} />} />
                             <Route path="/login" element={<Login setUser={setUser} />} />
                             <Route path="/forgot-password" element={<ForgotPassword />} />

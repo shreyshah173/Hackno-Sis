@@ -16,11 +16,11 @@ const Login = ({ setUser }) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:5000/api/login', formData);
+            const response = await axios.post('http://localhost:5000/api/users/login', formData);
             setUser({ loginStatus: true, ...response.data.user });
             alert(response.data.message);
         } catch (error) {
-            alert('Error logging in');
+            alert('Password or email check karo bhai!!!');
         }
     };
 

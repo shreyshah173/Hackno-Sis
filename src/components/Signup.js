@@ -27,10 +27,11 @@ const Signup = ({ setUser }) => {
         }
 
         try {
-            const response = await axios.post('http://localhost:5000/api/signup', formData);
+            const response = await axios.post('http://localhost:5000/api/users/signup', formData);
             alert(response.data.message);
         } catch (error) {
             alert('Error registering user');
+            console.log(error);
         }
     };
 

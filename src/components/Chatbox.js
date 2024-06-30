@@ -5,7 +5,7 @@ const Chatbox = ({ user }) => {
     const [chats, setChats] = useState([]);
     const [query, setQuery] = useState('');
     const [queries, setQueries] = useState([]);
-
+    
     useEffect(() => {
         fetchChats();
         fetchQueries();
@@ -28,6 +28,12 @@ const Chatbox = ({ user }) => {
             console.error('Error fetching queries:', error);
         }
     };
+
+    if (!user.loginStatus) {
+        return <h2 style={{marginTop:'100px'}}>Please login to chat</h2>;
+    }
+
+
 
     const handleQuerySubmit = async (e) => {
         e.preventDefault();

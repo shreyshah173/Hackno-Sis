@@ -1,13 +1,19 @@
 import React from 'react';
 
-function Benefit() {
+function Benefit({ user }) {
   return (
     <section class="service-sec" id="benefits">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
             <div class="heading text-md-center text-xs-center">
-              <h2><small>Benefits of Exercise</small>To enjoy the glow of good health, you must exercise</h2>
+              <h2>
+              <small>
+              Benefits of Exercise
+              </small>
+              {user && <h1>{user.name}</h1>}
+              To enjoy the glow of good health, you must exercise
+              </h2>
             </div>
           </div>
           <div class="col-md-8">
