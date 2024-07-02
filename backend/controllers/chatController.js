@@ -1,23 +1,53 @@
-const Chat = require('../models/Chat');
+const Chat = require('../models/chatModel');
 
-// Example controller functions
-exports.getAllChats = async (req, res) => {
-    try {
-        const chats = await Chat.find();
-        res.json(chats);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
+// Create a new chat message
+exports.createChat = async (req, res) => {
+  try {
+    const newChat = new Chat(req.body);
+    const savedChat = await newChat.save();
+    res.status(201).json(savedChat);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 };
 
-exports.createChat = async (req, res) => {
-    const { message, sentByUser, order } = req.body;
-    const chat = new Chat({ message, sentByUser, order });
+// Get all chat messages
+exports.getAllChats = async (req, res) => {
+  try {
+    const chats = await Chat.find();
+    res.status(200).json(chats);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
 
-    try {
-        const newChat = await chat.save();
-        res.status(201).json(newChat);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
+// Get chat messages by user ID
+exports.getChatsByUserId = async (req, res) => {
+  try {
+    const chats = await Chat.find({ userid: req.params.userid });
+    res.status(200).json(chats);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+// Get chat messages by index
+exports.getChatsByIndex = async (req, res) => {
+  try {
+    const chats = await Chat.find({ index: req.params.index });
+    res.status(200).json(chats);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+// Delete a chat message
+exports.deleteChat = async (req, res) => {
+  try {
+    const deletedChat = await Chat.findByIdAndDelete(req.params.id);
+    if (!deletedChat) return res.status(404).json({ message: 'Chat not found' });
+    res.status(200).json({ message: 'Chat deleted' });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 };
