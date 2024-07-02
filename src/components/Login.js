@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+
 const Login = ({ setUser }) => {
     const [formData, setFormData] = useState({
         email: '',
@@ -14,7 +15,6 @@ const Login = ({ setUser }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
             const response = await axios.post('http://localhost:5000/api/users/login', formData);
             setUser({ loginStatus: true, ...response.data.user });
@@ -26,30 +26,33 @@ const Login = ({ setUser }) => {
 
     return (
         <div style={styles.container}>
-            <form onSubmit={handleSubmit} style={styles.form}>
-                <h2 style={styles.heading}>Login</h2>
-                <p style={styles.message}>Welcome back! Please login to your account.</p>
-                <input 
-                    type="email" 
-                    name="email" 
-                    placeholder="Email" 
-                    onChange={handleChange} 
-                    required 
-                    style={styles.input} 
-                />
-                <input 
-                    type="password" 
-                    name="password" 
-                    placeholder="Password" 
-                    onChange={handleChange} 
-                    required 
-                    style={styles.input} 
-                />
-                <button type="submit" style={styles.button}>Login</button>
-                <br />
-                <button style={{marginTop:'5px'}}><Link to={'/signup'}>Wait what!! you didn't sign up yet!</Link></button>
-                <button style={{marginTop:'5px'}}><Link to={'/forgot-password'}>Yoo man did you forget the password !</Link></button>
-            </form>
+            <div style={styles.formWrapper}>
+                <form onSubmit={handleSubmit} style={styles.form}>
+                    <h2 style={styles.heading}>Login</h2>
+                    <p style={styles.message}>Welcome back! Please login to your account.</p>
+                    <input
+                        className="login-input"
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        onChange={handleChange}
+                        required
+                    />
+                    <input
+                        className="login-input"
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        onChange={handleChange}
+                        required
+                    />
+                    <button className="login-button" type="submit">Login</button>
+                    <div style={styles.linkContainer}>
+                        <Link className="login-link" to='/signup'>Not registered yet? Sign up</Link>
+                        <Link className="login-link" to='/forgot-password'>Forgot password?</Link>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };
@@ -59,43 +62,40 @@ const styles = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100vh',
-        // marginTop: '50px',
-        backgroundColor: '#c4e3ff',
+        minHeight: '100vh',
+        backgroundColor: '#1a2a3a', // Deep navy blue
+        fontFamily: 'Arial, sans-serif',
+    },
+    formWrapper: {
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        padding: '20px',
+        borderRadius: '12px',
     },
     form: {
         backgroundColor: 'white',
-        padding: '20px',
+        padding: '40px',
         borderRadius: '8px',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-        border: '2px solid #007BFF',
-        width: '300px',
+        width: '350px',
         textAlign: 'center',
     },
     heading: {
-        marginBottom: '10px',
-        color: '#007BFF',
+        marginBottom: '20px',
+        color: '#333',
+        fontSize: '28px',
+        fontWeight: 'bold',
     },
     message: {
-        marginBottom: '20px',
-        color: '#555',
+        marginBottom: '30px',
+        color: '#666',
+        fontSize: '16px',
     },
-    input: {
-        width: '100%',
-        padding: '10px',
-        margin: '10px 0',
-        borderRadius: '4px',
-        border: '1px solid #ccc',
-    },
-    button: {
-        width: '100%',
-        padding: '10px',
-        backgroundColor: '#007BFF',
-        color: 'white',
-        border: 'none',
-        borderRadius: '4px',
-        cursor: 'pointer',
+    linkContainer: {
+        marginTop: '20px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
     },
 };
+
 
 export default Login;
