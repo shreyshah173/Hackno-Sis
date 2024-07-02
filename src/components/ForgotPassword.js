@@ -27,40 +27,49 @@ const ForgotPassword = () => {
 
     return (
         <div style={styles.container}>
-            <form onSubmit={handleSubmit} style={styles.form}>
-                <h2 style={styles.heading}>Forgot Password</h2>
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    onChange={handleChange}
-                    required
-                    style={styles.input}
-                />
-                <select name="securityQuestion" onChange={handleChange} style={styles.input}>
-                    <option value="mother's maiden name">Mother's Maiden Name</option>
-                    <option value="dog name">Dog Name</option>
-                    <option value="car's number">Car's Number</option>
-                </select>
-                <input
-                    type="text"
-                    name="securityAnswer"
-                    placeholder="Security Answer"
-                    onChange={handleChange}
-                    required
-                    style={styles.input}
-                />
-                <input
-                    type="password"
-                    name="newPassword"
-                    placeholder="New Password"
-                    onChange={handleChange}
-                    required
-                    style={styles.input}
-                />
-                <button type="submit" style={styles.button}>Reset Password</button>
-                <Link to="/login" style={styles.loginLink}>Remembered your password? Login</Link>
-            </form>
+            <div style={styles.formWrapper}>
+                <form onSubmit={handleSubmit} style={styles.form}>
+                    <h2 style={styles.heading}>Forgot Password</h2>
+                    <p style={styles.message}>Please enter your details to reset your password.</p>
+                    <input
+                        className="login-input"
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        onChange={handleChange}
+                        required
+                    />
+                    <select 
+                        className="login-input"
+                        name="securityQuestion" 
+                        onChange={handleChange}
+                    >
+                        <option value="mother's maiden name">Mother's Maiden Name</option>
+                        <option value="dog name">Dog Name</option>
+                        <option value="car's number">Car's Number</option>
+                    </select>
+                    <input
+                        className="login-input"
+                        type="text"
+                        name="securityAnswer"
+                        placeholder="Security Answer"
+                        onChange={handleChange}
+                        required
+                    />
+                    <input
+                        className="login-input"
+                        type="password"
+                        name="newPassword"
+                        placeholder="New Password"
+                        onChange={handleChange}
+                        required
+                    />
+                    <button className="login-button" type="submit">Reset Password</button>
+                    <div style={styles.linkContainer}>
+                        <Link className="login-link" to="/login">Remembered your password? Login</Link>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };
@@ -70,45 +79,39 @@ const styles = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100vh',
-        marginTop: '50px',
-        backgroundColor: '#c4e3ff',
+        minHeight: '100vh',
+        padding: '100px 0px',
+        backgroundColor: '#1a2a3a', // Deep navy blue
+        fontFamily: 'Arial, sans-serif',
+    },
+    formWrapper: {
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        padding: '20px',
+        borderRadius: '12px',
     },
     form: {
         backgroundColor: 'white',
-        padding: '20px',
+        padding: '40px',
         borderRadius: '8px',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-        border: '2px solid #007BFF',
-        width: '300px',
+        width: '350px',
         textAlign: 'center',
     },
     heading: {
-        marginBottom: '10px',
-        color: '#007BFF',
+        marginBottom: '20px',
+        color: '#333',
+        fontSize: '28px',
+        fontWeight: 'bold',
     },
-    input: {
-        width: '100%',
-        padding: '10px',
-        margin: '10px 0',
-        borderRadius: '4px',
-        border: '1px solid #ccc',
+    message: {
+        marginBottom: '30px',
+        color: '#666',
+        fontSize: '16px',
     },
-    button: {
-        width: '100%',
-        padding: '10px',
-        backgroundColor: '#007BFF',
-        color: 'white',
-        border: 'none',
-        borderRadius: '4px',
-        cursor: 'pointer',
-        marginTop: '10px',
-    },
-    loginLink: {
-        display: 'block',
-        marginTop: '10px',
-        color: '#007BFF',
-        textDecoration: 'none',
+    linkContainer: {
+        marginTop: '20px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
     },
 };
 

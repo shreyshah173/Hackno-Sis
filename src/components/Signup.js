@@ -29,6 +29,7 @@ const Signup = ({ setUser }) => {
         try {
             const response = await axios.post('http://localhost:5000/api/users/signup', formData);
             alert(response.data.message);
+            navigate('/login'); // Redirect to login page after successful signup
         } catch (error) {
             alert('Error registering user');
             console.log(error);
@@ -37,68 +38,73 @@ const Signup = ({ setUser }) => {
 
     return (
         <div style={styles.container}>
-            <form onSubmit={handleSubmit} style={styles.form}>
-                <h2 style={styles.heading}>Signup</h2>
-                <p style={styles.message}>Create an account to enjoy our services.</p>
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="Name"
-                    onChange={handleChange}
-                    required
-                    style={styles.input}
-                />
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    onChange={handleChange}
-                    required
-                    style={styles.input}
-                />
-                <input
-                    type="tel"
-                    name="phone"
-                    placeholder="Phone"
-                    onChange={handleChange}
-                    required
-                    style={styles.input}
-                />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    onChange={handleChange}
-                    required
-                    style={styles.input}
-                />
-                <input
-                    type="password"
-                    name="confirmPassword"
-                    placeholder="Confirm Password"
-                    onChange={handleChange}
-                    required
-                    style={styles.input}
-                />
-                Select a security question:
-                <select name="securityQuestion" onChange={handleChange} style={styles.input}>
-                    <option value="mother's maiden name">Mother's Maiden Name</option>
-                    <option value="dog name">Dog Name</option>
-                    <option value="car's number">Car's Number</option>
-                </select>
-                <input
-                    type="text"
-                    name="securityAnswer"
-                    placeholder="Security Answer"
-                    onChange={handleChange}
-                    required
-                    style={styles.input}
-                />
-                <button type="submit" style={styles.button}>Signup</button>
-                <button type="button" style={styles.loginButton} onClick={() => navigate('/login')}>
-                    Already have an account? Login
-                </button>
-            </form>
+            <div style={styles.formWrapper}>
+                <form onSubmit={handleSubmit} style={styles.form}>
+                    <h2 style={styles.heading}>Sign Up</h2>
+                    <p style={styles.message}>Create an account to enjoy our services.</p>
+                    <input
+                        className="signup-input"
+                        type="text"
+                        name="name"
+                        placeholder="Name"
+                        onChange={handleChange}
+                        required
+                    />
+                    <input
+                        className="signup-input"
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        onChange={handleChange}
+                        required
+                    />
+                    <input
+                        className="signup-input"
+                        type="tel"
+                        name="phone"
+                        placeholder="Phone"
+                        onChange={handleChange}
+                        required
+                    />
+                    <input
+                        className="signup-input"
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        onChange={handleChange}
+                        required
+                    />
+                    <input
+                        className="signup-input"
+                        type="password"
+                        name="confirmPassword"
+                        placeholder="Confirm Password"
+                        onChange={handleChange}
+                        required
+                    />
+                    <select 
+                        className="signup-select"
+                        name="securityQuestion" 
+                        onChange={handleChange}
+                    >
+                        <option value="mother's maiden name">Mother's Maiden Name</option>
+                        <option value="dog name">Dog Name</option>
+                        <option value="car's number">Car's Number</option>
+                    </select>
+                    <input
+                        className="signup-input"
+                        type="text"
+                        name="securityAnswer"
+                        placeholder="Security Answer"
+                        onChange={handleChange}
+                        required
+                    />
+                    <button className="signup-button" type="submit">Sign Up</button>
+                    <button className="login-button" type="button" onClick={() => navigate('/login')}>
+                        Already have an account? Login
+                    </button>
+                </form>
+            </div>
         </div>
     );
 };
@@ -107,53 +113,36 @@ const styles = {
     container: {
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        marginTop: '60px',
-        backgroundColor: '#c4e3ff',
+        alignItems: 'flex-start', // Changed from 'center' to 'flex-start'
+        minHeight: '100vh',
+        paddingBottom: '120px', // 
+        backgroundColor: '#1a2a3a', // Deep navy blue
+        fontFamily: 'Arial, sans-serif',
+        paddingTop: '80px', // Add padding to the top
+    },
+    formWrapper: {
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        padding: '20px',
+        borderRadius: '12px',
+        marginTop: '20px', // Add margin to the top
     },
     form: {
         backgroundColor: 'white',
-        padding: '20px',
+        padding: '40px',
         borderRadius: '8px',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-        border: '2px solid #007BFF',
-        width: '300px',
+        width: '350px',
         textAlign: 'center',
     },
     heading: {
-        marginBottom: '10px',
-        color: '#007BFF',
+        marginBottom: '20px',
+        color: '#333',
+        fontSize: '28px',
+        fontWeight: 'bold',
     },
     message: {
-        marginBottom: '20px',
-        color: '#555',
-    },
-    input: {
-        width: '100%',
-        padding: '10px',
-        margin: '10px 0',
-        borderRadius: '4px',
-        border: '1px solid #ccc',
-    },
-    button: {
-        width: '100%',
-        padding: '10px',
-        backgroundColor: '#007BFF',
-        color: 'white',
-        border: 'none',
-        borderRadius: '4px',
-        cursor: 'pointer',
-        marginBottom: '10px',
-    },
-    loginButton: {
-        width: '100%',
-        padding: '10px',
-        backgroundColor: 'white',
-        color: '#007BFF',
-        border: '2px solid #007BFF',
-        borderRadius: '4px',
-        cursor: 'pointer',
+        marginBottom: '30px',
+        color: '#666',
+        fontSize: '16px',
     },
 };
 

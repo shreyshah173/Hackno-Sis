@@ -11,7 +11,7 @@ function Benefit({ user }) {
               <small>
               Benefits of Exercise
               </small>
-              {user && <h1>{user.name}</h1>}
+             
               To enjoy the glow of good health, you must exercise
               </h2>
             </div>

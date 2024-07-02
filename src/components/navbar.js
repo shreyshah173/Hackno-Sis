@@ -33,7 +33,7 @@ function Navbar({ user, setUser }) {
                 <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse1" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <Link className="navbar-brand" to="#">Burn<span>out</span></Link>
+                <Link className="navbar-brand" to="#">Longevity<span>Ai</span></Link>
                 <div className="collapse navbar-collapse" id="navbarCollapse1">
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item active"> <Link to={'/'} className="nav-link" href="#myCarousel">Home <span className="sr-only">(current)</span></Link> </li>
@@ -51,6 +51,18 @@ function Navbar({ user, setUser }) {
                                 <Link className="nav-link" to="/login">Login</Link>
                             </li>
                         )}
+                        {user.loginStatus ? (
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/chat" >Chat</Link>
+                            </li>
+                        ) : (
+                            <li className="nav-item">
+                                {/* <Link className="nav-link" to="/login">Login</Link> */}
+                            </li>
+                        )}
+                        <div className="nav-item nav-link">
+                            Hi,<b>{user.name}</b>
+                        </div>
                     </ul>
                 </div>
             </div>
