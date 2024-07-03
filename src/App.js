@@ -12,6 +12,7 @@ import Footer from './components/footer';
 import Load from './components/load';
 import Signup from './components/Signup';
 import Login from './components/Login';
+import Profile from './components/profilepage';
 import ForgotPassword from './components/ForgotPassword';
 import Chatbox from './components/Chatbox'; // Import the Chatbox component
 
@@ -43,7 +44,7 @@ function App() {
                     </header>
                     <main>
                         <Routes>
-                            <Route path="/" element={<><Home setUser={setUser}/> <Benefit  user={user}/> <About /> <Blog /> <Video /> <Gallery /> <Contact /></>} />
+                            <Route path="/" element={<><Home setUser={setUser}/> <Benefit  user={user}/> <About /> <Blog /> <Video /> <Gallery /><Profile /> <Contact /></>} />
                             <Route path="/signup" element={<Signup setUser={setUser} />} />
                             <Route path="/login" element={<Login setUser={setUser} />} />
                             <Route path="/forgot-password" element={<ForgotPassword />} />
