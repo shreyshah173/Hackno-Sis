@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = ({ setUser }) => {
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,6 +19,7 @@ const Login = ({ setUser }) => {
             const response = await axios.post('http://localhost:5000/api/users/login', formData);
             setUser({ loginStatus: true, ...response.data.user });
             alert(response.data.message);
+            navigate('/'); // Navigate to the home page
         } catch (error) {
             alert('Password or email check karo bhai!!!');
         }
@@ -96,6 +97,5 @@ const styles = {
         alignItems: 'center',
     },
 };
-
 
 export default Login;

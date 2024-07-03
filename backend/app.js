@@ -5,6 +5,7 @@ const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
 const chatRoutes = require('./routes/chatRoutes');
 const queryRoutes = require('./routes/queryRoutes');
+const topicRoutes = require('./routes/topicRoutes');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -26,6 +27,7 @@ db.once('open', () => {
 app.use('/api/users', userRoutes); // User routes
 app.use('/api/chats', chatRoutes); // Chat history routes
 app.use('/api/queries', queryRoutes); // Query management routes
+app.use('/api/topics', topicRoutes); // Topic routes
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);

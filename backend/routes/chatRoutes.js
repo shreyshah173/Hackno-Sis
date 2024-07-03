@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const chatController = require('../controllers/chatController');
 
-// Routes for /api/chats
-
-// Example routes
-router.get('/', chatController.getAllChats);
 router.post('/', chatController.createChat);
+router.get('/', chatController.getAllChats);
+router.get('/user/:userid', chatController.getChatsByUserId);
+router.get('/index/:index', chatController.getChatsByIndex);
+router.delete('/:id', chatController.deleteChat);
 
 module.exports = router;

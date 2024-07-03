@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import Home from './components/home';
 import Navbar from './components/navbar';
 import Benefit from './components/benefit';
@@ -14,7 +14,9 @@ import Signup from './components/Signup';
 import Login from './components/Login';
 import Profile from './components/profilepage';
 import ForgotPassword from './components/ForgotPassword';
-import Chatbox from './components/Chatbox'; // Import the Chatbox component
+// import Chatbox from './components/Chatbox'; // Import the Chatbox component
+import Chat from './components/Chat';
+import Formpage from './components/Formpage';
 
 function App() {
     const [loading, setLoading] = useState(true);
@@ -48,8 +50,10 @@ function App() {
                             <Route path="/signup" element={<Signup setUser={setUser} />} />
                             <Route path="/login" element={<Login setUser={setUser} />} />
                             <Route path="/forgot-password" element={<ForgotPassword />} />
-                            <Route path="/chat" element={<Chatbox user={user} />} /> {/* Route for Chatbox component */}
+                            {/* <Route path="/chat" element={<Chatbox user={user} />} /> Route for Chatbox component */}
                             <Route path="*" element={<Navigate to="/" />} />
+                            <Route path='/chat' element={<Chat user={user}/>} />
+                            <Route path='Fill-Form' element={<Formpage />} />
                         </Routes>
                     </main>
                     <footer>
