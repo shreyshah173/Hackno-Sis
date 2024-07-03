@@ -12,17 +12,45 @@ const Signup = ({ setUser }) => {
         securityQuestion: 'mother\'s maiden name',
         securityAnswer: ''
     });
-
+    const [passwordError, setPasswordError] = useState([]);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const handlePasswordChange = (e) => {
+        const password = e.target.value;
+        setFormData({ ...formData, password });
+
+        const errors = [];
+        if (password.length < 8) {
+            errors.push("Password must be at least 8 characters long");
+        }
+        if (!/[a-z]/.test(password)) {
+            errors.push("Password must contain at least one lowercase letter");
+        }
+        if (!/[A-Z]/.test(password)) {
+            errors.push("Password must contain at least one uppercase letter");
+        }
+        if (!/\d/.test(password)) {
+            errors.push("Password must contain at least one number");
+        }
+        if (!/[@$!%*?&]/.test(password)) {
+            errors.push("Password must contain at least one special character (@$!%*?&)");
+        }
+        setPasswordError(errors);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (formData.password !== formData.confirmPassword) {
             alert("Passwords do not match");
+            return;
+        }
+
+        if (passwordError.length > 0) {
+            alert("Password does not meet the required criteria");
             return;
         }
 
@@ -71,9 +99,17 @@ const Signup = ({ setUser }) => {
                         type="password"
                         name="password"
                         placeholder="Password"
-                        onChange={handleChange}
+                        onChange={handlePasswordChange}
                         required
+                        style={passwordError.length > 0 ? styles.errorInput : null}
                     />
+                    {passwordError.length > 0 && (
+                        <ul style={styles.errorList}>
+                            {passwordError.map((error, index) => (
+                                <li key={index} style={styles.errorItem}>{error}</li>
+                            ))}
+                        </ul>
+                    )}
                     <input
                         className="signup-input"
                         type="password"
@@ -113,18 +149,18 @@ const styles = {
     container: {
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'flex-start', // Changed from 'center' to 'flex-start'
+        alignItems: 'flex-start',
         minHeight: '100vh',
-        paddingBottom: '120px', // 
-        backgroundColor: '#1a2a3a', // Deep navy blue
+        paddingBottom: '120px',
+        backgroundColor: '#1a2a3a',
         fontFamily: 'Arial, sans-serif',
-        paddingTop: '80px', // Add padding to the top
+        paddingTop: '80px',
     },
     formWrapper: {
         backgroundColor: 'rgba(255, 255, 255, 0.1)',
         padding: '20px',
         borderRadius: '12px',
-        marginTop: '20px', // Add margin to the top
+        marginTop: '20px',
     },
     form: {
         backgroundColor: 'white',
@@ -144,6 +180,18 @@ const styles = {
         color: '#666',
         fontSize: '16px',
     },
+    errorInput: {
+        border: '2px solid red',
+    },
+    errorList: {
+        listStyleType: 'none',
+        padding: 0,
+        marginTop: '10px',
+        color: 'red',
+    },
+    errorItem: {
+        marginBottom: '5px',
+    }
 };
 
 export default Signup;

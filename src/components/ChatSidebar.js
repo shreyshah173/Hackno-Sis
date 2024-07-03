@@ -21,9 +21,10 @@ const ChatSidebar = ({ setIndex, userid }) => {
     fetchTopics();
   }, [userid]);
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id, index) => {
     try {
       await axios.delete(`http://localhost:5000/api/topics/${id}`);
+      await axios.delete(`http://localhost:5000/api/chats/user/${userid}/index/${index}`);
       setTopics(topics.filter(topic => topic._id !== id));
     } catch (error) {
       console.error('Error deleting topic:', error);
@@ -46,7 +47,7 @@ const ChatSidebar = ({ setIndex, userid }) => {
 
       const response = await axios.post('http://localhost:5000/api/topics', newTopic);
       setTopics([...topics, response.data].sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
-      setNewTopicName((newTopic+'1'));
+      setNewTopicName('New Chat');
       setIndex(newIndex);
     } catch (error) {
       console.error('Error creating new topic:', error.response || error);
@@ -60,17 +61,11 @@ const ChatSidebar = ({ setIndex, userid }) => {
         {topics.map(topic => (
           <li key={topic._id} onClick={() => setIndex(topic.index)}>
             <span>{topic.topicname}</span>
-            <button onClick={(e) => { e.stopPropagation(); handleDelete(topic._id); }}>Delete</button>
+            <button onClick={(e) => { e.stopPropagation(); handleDelete(topic._id, topic.index); }}>Delete</button>
           </li>
         ))}
       </ul>
       <div>
-        {/* <input
-          type="text"
-          value={newTopicName}
-          onChange={(e) => setNewTopicName(e.target.value)}
-          placeholder="New topic name"
-        /> */}
         <button onClick={handleNewTopic}>Add Topic</button>
       </div>
     </div>

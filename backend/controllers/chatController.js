@@ -51,3 +51,14 @@ exports.deleteChat = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+
+exports.deleteChatsByUserIdAndIndex = async (req, res) => {
+  const { userid, index } = req.params;
+  try {
+    await Chat.deleteMany({ userid, index });
+    res.status(200).json({ message: 'Chats deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting chats', error });
+  }
+};

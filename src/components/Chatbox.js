@@ -74,7 +74,7 @@ const Chatbox = ({ userid, index,status }) => {
       try {
         const response = await axios.get('http://localhost:5000/api/queries');
         const latestQuery = response.data[response.data.length - 1];
-        if (1) {
+        if (latestQuery) {
           const newChat = {
             message: latestQuery.response,
             sentbyuser: false,

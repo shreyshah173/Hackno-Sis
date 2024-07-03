@@ -1,13 +1,6 @@
 const Query = require('../models/Query');
-// const a = require('../.env')
 const Groq = require("groq-sdk");
-// need to fetch the API key from the .env file in the root directory of the project which is ../
-// this is backend/controllers/queryController.js
-// and the dotenv is in backend/.env
-// fetch that .env file and use the API key from there
-require('dotenv').config({ path: '../.env' });
-console.log(process.env.API_KEY);
-const groq = new Groq({ apiKey: "Your-api-key" });
+const groq = new Groq({ apiKey: "API_KEY" });
 
 
 // Example controller functions
