@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-console.log('model-user');
+// console.log('model-user');
 
 const userSchema = new mongoose.Schema({
     name: String,

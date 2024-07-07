@@ -1,9 +1,7 @@
 const Query = require('../models/Query');
 const Groq = require("groq-sdk");
-const groq = new Groq({ apiKey: "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" });
+const groq = new Groq({ apiKey: "api-key" });
 
-
-// Example controller functions
 exports.getAllQueries = async (req, res) => {
     try {
         const queries = await Query.find();
@@ -15,7 +13,6 @@ exports.getAllQueries = async (req, res) => {
 
 exports.createQuery = async (req, res) => {
     const { currQuery } = req.body;
-
     try {
         const groqResponse = await groq.chat.completions.create({
             messages: [
@@ -26,11 +23,8 @@ exports.createQuery = async (req, res) => {
             ],
             model: "mixtral-8x7b-32768",
         });
-
         const responseContent = groqResponse.choices[0]?.message?.content || '';
-
         const query = new Query({ currQuery: currQuery, response:responseContent });
-
         const newQuery = await query.save();
         res.status(201).json(newQuery);
     } catch (err) {

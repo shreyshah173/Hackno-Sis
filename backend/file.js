@@ -18,9 +18,9 @@ const insertData = async () => {
   try {
     for (let chat of randomChats) {
       const response = await axios.post('http://localhost:5000/api/chats', chat);
-      console.log(`Inserted chat: ${response.data.message}`);
+      // console.log(`Inserted chat: ${response.data.message}`);
     }
-    console.log('All chats inserted successfully!');
+    // console.log('All chats inserted successfully!');
   } catch (error) {
     console.error('Error inserting chats:', error.message);
   }

@@ -60,7 +60,7 @@ const Signup = ({ setUser }) => {
             navigate('/login'); // Redirect to login page after successful signup
         } catch (error) {
             alert('Error registering user');
-            console.log(error);
+            // console.log(error);
         }
     };
 

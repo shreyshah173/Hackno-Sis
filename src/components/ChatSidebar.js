@@ -4,6 +4,8 @@ import axios from 'axios';
 const ChatSidebar = ({ setIndex, userid }) => {
   const [topics, setTopics] = useState([]);
   const [newTopicName, setNewTopicName] = useState('New Chat');
+  const [editTopicId, setEditTopicId] = useState(null);
+  const [editTopicName, setEditTopicName] = useState('');
 
   useEffect(() => {
     const fetchTopics = async () => {
@@ -43,14 +45,29 @@ const ChatSidebar = ({ setIndex, userid }) => {
         index: newIndex
       };
 
-      console.log('Creating new topic:', newTopic);
-
       const response = await axios.post('http://localhost:5000/api/topics', newTopic);
       setTopics([...topics, response.data].sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
       setNewTopicName('New Chat');
       setIndex(newIndex);
     } catch (error) {
       console.error('Error creating new topic:', error.response || error);
+    }
+  };
+
+  const handleUpdate = async () => {
+    if (!editTopicName.trim()) return;
+
+    try {
+      const updatedTopic = {
+        topicname: editTopicName
+      };
+
+      const response = await axios.put(`http://localhost:5000/api/topics/${editTopicId}`, updatedTopic);
+      setTopics(topics.map(topic => topic._id === editTopicId ? response.data : topic));
+      setEditTopicId(null);
+      setEditTopicName('');
+    } catch (error) {
+      console.error('Error updating topic:', error.response || error);
     }
   };
 
@@ -61,11 +78,25 @@ const ChatSidebar = ({ setIndex, userid }) => {
       </div>
       <ul>
         {topics.map(topic => (
-          <li type='none'key={topic._id} onClick={() => setIndex(topic.index)}>
+          <li type='none' key={topic._id} onClick={() => setIndex(topic.index)}>
             <div className='chat-side'>
-            <span>{topic.topicname}</span>
-            <i onClick={(e) => { e.stopPropagation(); handleDelete(topic._id, topic.index); }} class="fa fa-trash" aria-hidden="true"></i>
-            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+              {editTopicId === topic._id ? (
+                <>
+                  <input
+                    type='text'
+                    value={editTopicName}
+                    onChange={(e) => setEditTopicName(e.target.value)}
+                  />
+                  <button onClick={handleUpdate}>Save</button>
+                  <button onClick={() => setEditTopicId(null)}>Cancel</button>
+                </>
+              ) : (
+                <>
+                  <span>{topic.topicname}</span>
+                  <i onClick={(e) => { e.stopPropagation(); handleDelete(topic._id, topic.index); }} className="fa fa-trash" aria-hidden="true"></i>
+                  <i onClick={(e) => { e.stopPropagation(); setEditTopicId(topic._id); setEditTopicName(topic.topicname); }} className="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </>
+              )}
             </div>
           </li>
         ))}

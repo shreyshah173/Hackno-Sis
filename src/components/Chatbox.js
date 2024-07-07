@@ -6,7 +6,7 @@ const Chatbox = ({ userid, index, status }) => {
   const [query, setQuery] = useState('');
   const [queries, setQueries] = useState([]);
   const chatHistoryRef = useRef(null);
-  console.log(userid, index);
+  // console.log(userid, index);
 
   useEffect(() => {
     fetchChats();

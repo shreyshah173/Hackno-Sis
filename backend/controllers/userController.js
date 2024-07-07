@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
-console.log('userController');
+// console.log('userController');
 
 const signup = async (req, res) => {
     const { name, email, phone, password, securityQuestion, securityAnswer } = req.body;

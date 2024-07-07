@@ -13,9 +13,9 @@ const insertData = async () => {
   try {
     for (let topic of randomTopics) {
       const response = await axios.post('http://localhost:5000/api/topics', topic);
-      console.log(`Inserted topic: ${response.data.topicname}`);
+      // console.log(`Inserted topic: ${response.data.topicname}`);
     }
-    console.log('All topics inserted successfully!');
+    // console.log('All topics inserted successfully!');
   } catch (error) {
     console.error('Error inserting topics:', error.message);
   }

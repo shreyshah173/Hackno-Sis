@@ -56,7 +56,7 @@ function Navbar({ user, setUser }) {
                                 <Link className="nav-link" to="/login">Login</Link>
                             </li>
                         )}
-                       
+
                         {user.loginStatus ? (
                             <li className="nav-item">
                                 <Link className="nav-link" to="/profile" >Profile</Link>
@@ -64,9 +64,14 @@ function Navbar({ user, setUser }) {
                         ) : (
                             <li className="nav-item"></li>
                         )}
-                        <div className="nav-item nav-link">
-                            Hi,<b>{user.name}</b>
-                        </div>
+                        {user.loginStatus ? (
+                            <div className="nav-item nav-link">
+                                Hi, <b>{user.name}</b>
+                            </div>
+                        ) : (
+                            <li className="nav-item"></li>
+                        )}
+
                     </ul>
                 </div>
             </div>

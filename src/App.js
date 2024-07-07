@@ -62,7 +62,7 @@ function App() {
                             <Route path='/profile' element={<ProfilePage user={user} />} />
 
                             <Route path='/chat' element={<Chat user={user} />} />
-                            <Route path='Fill-Form' element={<Formpage />} />
+                            <Route path='/Form' element={<Formpage user={user}/>} />
                             <Route path="*" element={<Navigate to="/" />} />
                         </Routes>
                     </main>
