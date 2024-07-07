@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
-const Chatbox = ({ userid, index,status }) => {
+const Chatbox = ({ userid, index, status }) => {
   const [chats, setChats] = useState([]);
   const [query, setQuery] = useState('');
   const [queries, setQueries] = useState([]);
   const chatHistoryRef = useRef(null);
-    console.log(userid,index);
+  console.log(userid, index);
+
   useEffect(() => {
     fetchChats();
     fetchQueries();
@@ -85,22 +86,19 @@ const Chatbox = ({ userid, index,status }) => {
           await axios.post('http://localhost:5000/api/chats', newChat);
           setChats(prevChats => [...prevChats, newChat]);
           await axios.delete('http://localhost:5000/api/queries');
-          // if the topic with the current index and userid is not there then add a new topic for that 
-            const response = await axios.get('http://localhost:5000/api/topics');
-            const filteredTopics = response.data
-                .filter(topic => topic.userid === userid && topic.index === index);
-            if(filteredTopics.length === 0){
-                const newTopic = {
-                    topicname: `Topic ${index}`,
-                    index: index,
-                    userid: userid
-                };
-                await axios.post('http://localhost:5000/api/topics', newTopic);
-                // i want to re render the component in the parent component  reload
-                // reload the page
-                window.location.reload();
-            }
-
+          // Check if the topic with the current index and userid exists
+          const response = await axios.get('http://localhost:5000/api/topics');
+          const filteredTopics = response.data.filter(topic => topic.userid === userid && topic.index === index);
+          if (filteredTopics.length === 0) {
+            const newTopic = {
+              topicname: `Topic ${index}`,
+              index: index,
+              userid: userid
+            };
+            await axios.post('http://localhost:5000/api/topics', newTopic);
+            // Reload the component without a full page reload
+            fetchChats();
+          }
           break;
         }
         await new Promise(resolve => setTimeout(resolve, 1000));
@@ -123,15 +121,27 @@ const Chatbox = ({ userid, index,status }) => {
   return (
     <div style={styles.container}>
       <div style={styles.chatContainer}>
-        <div style={styles.chatHistory} ref={chatHistoryRef}>
-          {chats.map((chat, index) => (
-            <div key={index} style={chat.sentbyuser ? styles.userMessage : styles.aiMessage}>
-              <div style={chat.sentbyuser ? styles.userMessageContent : styles.aiMessageContent}>
-                <span>{chat.message}</span>
-              </div>
+        {chats.length === 0 ? (
+          <div style={styles.emptyStateContainer}>
+            <h2>Chat with our AI agent</h2>
+            <div style={styles.cardsContainer}>
+              <div style={styles.card}>Card 1</div>
+              <div style={styles.card}>Card 2</div>
+              <div style={styles.card}>Card 3</div>
+              <div style={styles.card}>Card 4</div>
             </div>
-          ))}
-        </div>
+          </div>
+        ) : (
+          <div style={styles.chatHistory} ref={chatHistoryRef}>
+            {chats.map((chat, index) => (
+              <div key={index} style={chat.sentbyuser ? styles.userMessage : styles.aiMessage}>
+                <div style={chat.sentbyuser ? styles.userMessageContent : styles.aiMessageContent}>
+                  <span>{chat.message}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
         <form onSubmit={handleQuerySubmit} style={styles.form}>
           <input
             style={styles.input}
@@ -141,30 +151,35 @@ const Chatbox = ({ userid, index,status }) => {
             placeholder="Type your message here..."
             required
           />
-          <button style={styles.button} type="submit">Send</button>
+          <button style={styles.button} type="submit"><i className="fa fa-arrow-circle-up" aria-hidden="true"></i></button>
         </form>
       </div>
     </div>
   );
 };
 
+
+
 const styles = {
   container: {
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: '100vh',
-    backgroundColor: '#343541',
-    fontFamily: 'Arial, sans-serif',
-    padding: '100px',
+    flexDirection: 'column',
+    height: '100%',
+    backgroundColor: 'white',
+    padding: '110px 0px 30px 50px',
     color: '#ECECF1',
+    fontFamily: 'sans-serif',
   },
   chatContainer: {
     display: 'flex',
     flexDirection: 'column',
-    height: '100vh',
+    height: '100%',
     width: '100%',
-    maxWidth: '800px',
+    maxWidth: '1200px',
+    backgroundColor: 'white',
+    borderRadius: '8px',
+    overflow: 'hidden',
+    
   },
   chatHistory: {
     flex: 1,
@@ -185,20 +200,32 @@ const styles = {
     maxWidth: '70%',
     padding: '10px 15px',
     borderRadius: '15px',
-    backgroundColor: '#498ebc',
-    color: '#ECECF1',
+    boxShadow: '0 4px 8px rgba(180, 180, 180, 0.5)',
+    backgroundColor: 'white',
+    color: 'black',
+    fontWeight: '100',
+    fontSize: '20px',
+    wordBreak: 'break-word',
   },
   aiMessageContent: {
     maxWidth: '70%',
     padding: '10px 15px',
     borderRadius: '15px',
-    backgroundColor: '#444654',
-    color: '#D1D5DB',
+    boxShadow: '0 2px 4px rgba(2, 151, 255, 0.5)',
+    backgroundColor: 'white',
+    color: 'black',
+    fontSize: '20px',
+    fontWeight: '100',
+    wordBreak: 'break-word',
   },
   form: {
     display: 'flex',
+    maxWidth: '70%',
     padding: '20px',
-    borderTop: '1px solid #5C5C6E',
+    borderRadius: '15px',
+    marginLeft: '170px',
+    borderTop: '1px solid',
+    backgroundColor: 'rgb(249, 249, 249)', // Footer background color
   },
   input: {
     flex: 1,
@@ -206,19 +233,44 @@ const styles = {
     fontSize: '16px',
     border: 'none',
     borderRadius: '5px',
-    backgroundColor: '#40414F',
-    color: '#ECECF1',
+    backgroundColor: 'rgb(235, 235, 235)',
+    color: 'rgb(30, 30, 30)',
+    outline: 'none',
   },
   button: {
-    padding: '10px 20px',
+    padding: '5px 15px',
     marginLeft: '10px',
     fontSize: '16px',
     border: 'none',
     borderRadius: '5px',
-    backgroundColor: '#5C5C6E',
-    color: '#ECECF1',
+    backgroundColor: 'rgb(225, 225, 225)',
+    color: 'white',
+    fontSize: '20px',
     cursor: 'pointer',
+    outline: 'none',
+  },
+  emptyStateContainer: {
+    textAlign: 'center',
+    padding: '75px',
+    color: 'rgb(30, 30, 30)'
+  },
+  cardsContainer: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    marginTop: '80px',
+    marginBottom: '80px',
+  },
+  card: {
+    width: '200px',
+    height: '150px',
+    backgroundColor: 'white',
+    borderRadius: '8px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxShadow: '0 2px 4px rgba(2, 151, 255, 0.5)', // #0297FF box shadow
   },
 };
 
 export default Chatbox;
+

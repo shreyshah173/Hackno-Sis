@@ -56,18 +56,20 @@ const ChatSidebar = ({ setIndex, userid }) => {
 
   return (
     <div className="chat-sidebar">
-      <h2>Topics</h2>
+      <div>
+        <div className='new-chat' onClick={handleNewTopic}><i className="fa fa-plus" aria-hidden="true"></i> New Chat</div>
+      </div>
       <ul>
         {topics.map(topic => (
-          <li key={topic._id} onClick={() => setIndex(topic.index)}>
+          <li type='none'key={topic._id} onClick={() => setIndex(topic.index)}>
+            <div className='chat-side'>
             <span>{topic.topicname}</span>
-            <button onClick={(e) => { e.stopPropagation(); handleDelete(topic._id, topic.index); }}>Delete</button>
+            <i onClick={(e) => { e.stopPropagation(); handleDelete(topic._id, topic.index); }} class="fa fa-trash" aria-hidden="true"></i>
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </div>
           </li>
         ))}
       </ul>
-      <div>
-        <button onClick={handleNewTopic}>Add Topic</button>
-      </div>
     </div>
   );
 };

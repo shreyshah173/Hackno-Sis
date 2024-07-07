@@ -22,22 +22,22 @@ const Signup = ({ setUser }) => {
     const handlePasswordChange = (e) => {
         const password = e.target.value;
         setFormData({ ...formData, password });
-
+    
         const errors = [];
         if (password.length < 8) {
-            errors.push("Password must be at least 8 characters long");
+            errors.push("At least 8 characters long");
         }
         if (!/[a-z]/.test(password)) {
-            errors.push("Password must contain at least one lowercase letter");
+            errors.push("At least one lowercase letter");
         }
         if (!/[A-Z]/.test(password)) {
-            errors.push("Password must contain at least one uppercase letter");
+            errors.push("At least one uppercase letter");
         }
         if (!/\d/.test(password)) {
-            errors.push("Password must contain at least one number");
+            errors.push("At least one number");
         }
         if (!/[@$!%*?&]/.test(password)) {
-            errors.push("Password must contain at least one special character (@$!%*?&)");
+            errors.push("At least one special character (@$!%*?&)");
         }
         setPasswordError(errors);
     };
@@ -94,22 +94,36 @@ const Signup = ({ setUser }) => {
                         onChange={handleChange}
                         required
                     />
-                    <input
-                        className="signup-input"
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        onChange={handlePasswordChange}
-                        required
-                        style={passwordError.length > 0 ? styles.errorInput : null}
-                    />
-                    {passwordError.length > 0 && (
-                        <ul style={styles.errorList}>
-                            {passwordError.map((error, index) => (
-                                <li key={index} style={styles.errorItem}>{error}</li>
-                            ))}
-                        </ul>
-                    )}
+                    <div className="password-section">
+        <input
+            className={`signup-input ${passwordError.length > 0 ? 'error-input' : ''}`}
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={handlePasswordChange}
+            required
+        />
+        <div className="password-requirements">
+            <p className="requirements-title">Password must contain:</p>
+            <ul className="requirements-list">
+                {[
+                    "At least 8 characters long",
+                    "At least one lowercase letter",
+                    "At least one uppercase letter",
+                    "At least one number",
+                    "At least one special character (@$!%*?&)"
+                ].map((requirement, index) => (
+                    <li 
+                        key={index} 
+                        className={`requirement-item ${passwordError.includes(requirement) ? 'invalid' : 'valid'}`}
+                    >
+                        {passwordError.includes(requirement) ? '✗' : '✓'} {requirement}
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </div>
+                    
                     <input
                         className="signup-input"
                         type="password"
@@ -191,6 +205,26 @@ const styles = {
     },
     errorItem: {
         marginBottom: '5px',
+    },
+    passwordSection: {
+        marginBottom: '20px',
+    },
+    passwordRequirements: {
+        textAlign: 'left',
+        marginTop: '10px',
+        fontSize: '14px',
+    },
+    requirementsTitle: {
+        marginBottom: '5px',
+        fontWeight: 'bold',
+    },
+    requirementsList: {
+        listStyleType: 'none',
+        padding: 0,
+        margin: 0,
+    },
+    requirementItem: {
+        marginBottom: '3px',
     }
 };
 
