@@ -6,16 +6,16 @@ function About() {
             <div className="container">
                 <div className="row">
                     <div className="col-md-3">
-                        <h2><small>Who We Are</small>About<br />Our Blog</h2>
+                        <h2><small>Who We Are</small>About Our<br />Concept Of Longevity</h2>
                     </div>
                     <div className="col-md-4">
-                        <p>To enjoy good health, to bring true happiness to one's family, to bring peace to all, one must first discipline and control one's own mind. If a man can control his mind he can find the way to Enlightenment, and all wisdom and virtue will naturally come to him.</p>
-                        <p>Saving our planet, lifting people out of poverty, advancing economic growth... these are one and the same fight. We must connect the dots between climate change, water scarcity, energy shortages, global health, food security and women's empowerment. Solutions to one problem must be solutions for all.</p>
+                        <p>Our elderly care assistant system is designed to empower seniors to lead healthier, more independent lives. We believe that with the right support and tools, older adults can maintain their well-being and enjoy their golden years to the fullest.</p>
+                        <p>By combining cutting-edge technology with compassionate care, we provide personalized health insights, 24/7 virtual medical assistance, and customized wellness plans tailored to each individual's needs.</p>
                     </div>
                     <div className="col-md-4">
-                        <p>Our greatest happiness does not depend on the condition of life in which chance has placed us, but is always the result of a good conscience, good health, occupation, and freedom in all just pursuits.</p>
-                        <p>Being in control of your life and having realistic expectations about your day-to-day challenges are the keys to stress management, which is perhaps the most important ingredient to living a happy, healthy and rewarding life.</p>
-                        <p><a href="#" className="btn btn-transparent-white btn-capsul">Explore More</a></p>
+                        <p>Our system goes beyond basic health management. We offer features like medication reminders, intelligent health monitoring, and cognitive stimulation exercises. We also facilitate social connections and provide emotional well-being support.</p>
+                        <p>We're committed to enhancing the quality of life for seniors, helping them stay connected with loved ones, and providing peace of mind to families. Our goal is to make health management easier, more accessible, and more effective for older adults.</p>
+                        <p><a href="#features" className="btn btn-transparent-white btn-capsul">Explore Features</a></p>
                     </div>
                 </div>
             </div>

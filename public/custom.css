@@ -98,7 +98,7 @@ section {
 /* SIGN UP
 -------------------------------------------------- */
 .signup-input, .signup-select {
-    width: 100%;
+    width: 50%;
     /* other styles remain the same */
 }
 .signup-input {
@@ -170,7 +170,42 @@ section {
     border-color: #3498db;
     outline: none;
 }
+.signup-input[type="password"] {
+    margin-bottom: 5px;
+}
 
+.password-requirements {
+    background-color: #f8f8f8;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 10px 10px;
+    margin-top: 5px;
+}
+
+.requirement-item {
+    display: flex;
+    align-items: center;
+	text-align: left;
+}
+
+.requirement-item::before {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 12px;
+    border-radius: 50%;
+	padding : 5px;
+	
+}
+
+.requirement-item.valid::before {
+    background-color: #4caf50;
+}
+
+.requirement-item.invalid::before {
+    background-color: #ff4d4d;
+}
 
 
 /* LOGIN
@@ -277,79 +312,75 @@ section {
 
 
 .navbar.top-bar {
-	border-radius: 0;
-	padding: 16px 0;
-	z-index: 16;
+    border-radius: 0;
+    padding: 16px 0;
+    z-index: 16;
+	 box-shadow: 0px 2.98256px 7.4564px rgba(0,0,0,0.1);
 }
 .navbar-toggler {
-	border: 1px solid #fff;
-	color: #fff;
-	position: absolute;
-	right: 21px;
+    border: 1px solid #fff;
+    color: #fff;
+    position: absolute;
+    right: 21px;
 }
 .sps {
-	padding: 1em .5em;
-	position: fixed;
-	top: 0;
-	left: 0;
-	transition: all 0.25s ease;
-	width: 100%;
+    padding: 1em .5em;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: all 0.25s ease;
+    width: 100%;
 }
 .sps--abv {
-	background-color: transparent;
-	color: #000;
+    background-color: white;
+    color: #000;
 }
 .sps--blw {
-	background-color: #fff;
-	opacity: 0.9;
-	color: #fff;
-}
-.top-bar a.navbar-brand {
-	color: #fff;
-	font-size: 26px;
-	font-weight: 800;
-	padding: 5px 0 0 10px;
-	text-transform: uppercase;
-}
-.sps--blw.top-bar a.navbar-brand {
-	color: #000;
-}
-.top-bar a.navbar-brand span {
-	color: #0297ff;
-}
-.top-bar .nav-link {
-	color: #fff;
-	font-size: 16px;
-	font-weight: 500;
-	padding: 12px 18px;
-    margin-left: 20px;
+    background-color: #fff;
+    color: #080808;
 }
 .sps--blw.top-bar .nav-link {
-	color: #000
+    color: #000;
+}
+.sps--blw.top-bar .navbar-brand {
+    color: #000;
+}
+.top-bar a.navbar-brand {
+    color: #000;
+    font-size: 26px;
+    font-weight: 800;
+    padding: 5px 0 0 10px;
+    text-transform: uppercase;
+}
+.top-bar a.navbar-brand span {
+    color: #0297ff;
+}
+.top-bar .nav-link {
+    color: #000;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 12px 18px;
+    margin-left: 20px;
 }
 .top-bar .navbar-nav .nav-item {
-	margin: 0
+    margin: 0
 }
-
 .top-bar .navbar-collapse.show .navbar-nav .nav-item {
-	background: rgb(12,36,46);
+    background: rgb(12,36,46);
 }
 .top-bar .nav-link:hover, .top-bar .nav-item.active a {
-	color: #fff;
-	border-bottom: 2px solid #fff;
-	border-radius: 0;
+    color: #0297ff;
+    border-bottom: 2px solid #fff;
+    border-radius: 0;
 }
-.sps--blw.top-bar .nav-link:hover, .sps--blw.top-bar .nav-item.active a {
-	color: #0297ff;
-	border-bottom: none;
-	border-radius: 0;
-}
+
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
 
 /*Swiper*/
 
 .carousel {
+	
 	width: 100%;
 	height: 100vh;
 	overflow: hidden;
@@ -428,6 +459,10 @@ section {
 	margin-top: 30px;
     text-align: center;
 }
+.img-fluid{
+	height: 100%;
+	width: 100%;
+}
 /* ABOUT SECTION
 -------------------------------------------------- */
 .about-sec {
@@ -459,7 +494,107 @@ section {
 .about-sec p {
 	font-size: 16px;
 }
-/* BLOG SECTION
+
+/*PROFILE SECTION*/
+.profile-container {
+	font-family: Arial, sans-serif;
+  }
+  
+  .profile-header {
+	display: flex;
+	align-items: center;
+	background: #3b3b3b;
+	padding: 20px;
+	color: white;
+  }
+  
+  .profile-picture {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	margin-right: 20px;
+  }
+  
+  .profile-username {
+	font-size: 24px;
+  }
+  
+  .profile-body {
+	display: flex;
+	padding: 20px;
+  }
+  
+  .profile-sidebar {
+	width: 200px;
+	border-right: 1px solid #ccc;
+  }
+  
+  .profile-sidebar ul {
+	list-style-type: none;
+	padding: 0;
+  }
+  
+  .profile-sidebar li {
+	padding: 10px;
+	cursor: pointer;
+  }
+  
+  .profile-sidebar li.active {
+	background: #0297ff;
+	color: white;
+  }
+  
+  .profile-content {
+	flex: 1;
+	padding-left: 20px;
+  }
+  
+  .profile-content h2 {
+	margin-top: 0;
+  }
+  
+  .profile-content ul {
+	list-style-type: none;
+	padding: 0;
+  }
+  
+  .profile-content li {
+	display: flex;
+	justify-content: space-between;
+	padding: 10px 0;
+	border-bottom: 1px solid #ccc;
+  }
+  
+  .profile-content li span {
+	flex: 1;
+  }
+  
+  .profile-content li a {
+	color: #0297ff;
+	
+	text-decoration: none;
+  }
+  /* Chat section
+  -------------------------------------------------- */ 
+  .chat-side{
+	display:flex;
+	justify-content: space-around;
+	margin-right: 250px;
+    max-width: 100%;
+	font-size: 18px;
+	align-items: center;
+	cursor: pointer;
+	margin:10px 0px;
+  }
+  .new-chat{
+	cursor: pointer;
+	font-size: 20px;
+	align-items: center;
+	margin-bottom: 30px;
+	
+  }
+
+  /* BLOG SECTION
 -------------------------------------------------- */
 .blog-sec .blog-box {
 	text-align: center;

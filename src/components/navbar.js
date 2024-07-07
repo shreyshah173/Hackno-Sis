@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function Navbar({ user, setUser }) {
     const [scrollClass, setScrollClass] = useState('sps--abv');
+    const location = useLocation();
+    const isChatPage = location.pathname === '/chat';
 
     useEffect(() => {
         const handleScroll = () => {
@@ -21,10 +23,7 @@ function Navbar({ user, setUser }) {
     }, []);
 
     const handleLogout = () => {
-        // Clear user session
         setUser({ loginStatus: false, name: '', email: '', phone: '' });
-        // You can also clear localStorage if needed
-        // localStorage.removeItem('user');
     };
 
     return (
@@ -39,9 +38,15 @@ function Navbar({ user, setUser }) {
                         <li className="nav-item active"> <Link to={'/'} className="nav-link" href="#myCarousel">Home <span className="sr-only">(current)</span></Link> </li>
                         <li className="nav-item"> <a className="nav-link" href="#benefits">Benefits</a> </li>
                         <li className="nav-item"> <a className="nav-link" href="#about">About</a> </li>
-                        <li className="nav-item"> <a className="nav-link" href="#blog">Blog</a> </li>
-                        <li className="nav-item"> <a className="nav-link" href="#gallery">Image Gallery</a> </li>
+                        <li className="nav-item"> <a className="nav-link" href="#gallery">Gallery</a> </li>
                         <li className="nav-item"> <a className="nav-link" href="#contact">Contact</a> </li>
+                        {user.loginStatus ? (
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/chat" >Chat</Link>
+                            </li>
+                        ) : (
+                            <li className="nav-item"></li>
+                        )}
                         {user.loginStatus ? (
                             <li className="nav-item">
                                 <Link className="nav-link" to="/" onClick={handleLogout}>Logout</Link>
@@ -51,14 +56,13 @@ function Navbar({ user, setUser }) {
                                 <Link className="nav-link" to="/login">Login</Link>
                             </li>
                         )}
+                       
                         {user.loginStatus ? (
                             <li className="nav-item">
-                                <Link className="nav-link" to="/chat" >Chat</Link>
+                                <Link className="nav-link" to="/profile" >Profile</Link>
                             </li>
                         ) : (
-                            <li className="nav-item">
-                                {/* <Link className="nav-link" to="/login">Login</Link> */}
-                            </li>
+                            <li className="nav-item"></li>
                         )}
                         <div className="nav-item nav-link">
                             Hi,<b>{user.name}</b>
