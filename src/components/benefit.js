@@ -2,43 +2,45 @@ import React from 'react';
 
 function Benefit({ user }) {
   return (
-    <section class="service-sec" id="benefits">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="heading text-md-center text-xs-center">
+    <section className="service-sec" id="benefits">
+      <div className="container">
+        <div className="row">
+          <div className="col-md-12">
+            <div className="heading text-md-center text-xs-center">
               <h2>
-              <small>
-              Benefits of Exercise
-              </small>
-             
-              To enjoy the glow of good health, you must exercise
+                <small>Benefits of Our Elderly Care Assistant</small>
+                Empowering Seniors for a Healthier, More Independent Life
               </h2>
             </div>
           </div>
-          <div class="col-md-8">
-            <div class="row">
-              <div class="col-md-6 text-sm-center service-block"> <i class="fa fa-plus" aria-hidden="true"></i>
-                <h3>Better Sleep</h3>
-                <p>Never in all their history have men been able truly to conceive of the world as one: a single sphere, a globe, having the qualities of a globe.</p>
+          <div className="col-md-8">
+            <div className="row">
+              <div className="col-md-6 text-sm-center service-block">
+                <i className="fa fa-user-md" aria-hidden="true"></i>
+                <h3>Personalized Health Insights</h3>
+                <p>Get tailored analysis of your medical reports and easy-to-understand explanations of your health conditions.</p>
               </div>
-              <div class="col-md-6 text-sm-center service-block"> <i class="fa fa-leaf" aria-hidden="true"></i>
-                <h3>Reduces Weight</h3>
-                <p>Never in all their history have men been able truly to conceive of the world as one: a single sphere, a globe, having the qualities of a globe.</p>
+              <div className="col-md-6 text-sm-center service-block">
+                <i className="fa fa-clock-o" aria-hidden="true"></i>
+                <h3>24/7 Virtual Assistance</h3>
+                <p>Access health information and get immediate answers to your medical queries anytime, anywhere.</p>
               </div>
-              <div class="col-md-6 text-sm-center service-block"> <i class="fa fa-leaf" aria-hidden="true"></i>
-                <h3>Improves Mood</h3>
-                <p>Never in all their history have men been able truly to conceive of the world as one: a single sphere, a globe, having the qualities of a globe.</p>
+              <div className="col-md-6 text-sm-center service-block">
+                <i className="fa fa-heartbeat" aria-hidden="true"></i>
+                <h3>Customized Wellness Plans</h3>
+                <p>Receive personalized diet recommendations and exercise routines based on your unique health profile.</p>
               </div>
-              <div class="col-md-6 text-sm-center service-block"> <i class="fa fa-bell" aria-hidden="true"></i>
-                <h3>Boosts Energy</h3>
-                <p>Never in all their history have men been able truly to conceive of the world as one: a single sphere, a globe, having the qualities of a globe.</p>
+              <div className="col-md-6 text-sm-center service-block">
+                <i className="fa fa-medkit" aria-hidden="true"></i>
+                <h3>Medication Management</h3>
+                <p>Get timely reminders for medication intake and track your prescription refills and doctor appointments.</p>
               </div>
             </div>
           </div>
-          <div class="col-md-4"> <img src="img/side-01.jpg" class="img-fluid" /> </div>
+          <div className="col-md-4">
+            <img src="img/eld_care.jpg" className="img-fluid" alt="Elderly Care Assistant" />
+          </div>
         </div>
-
       </div>
     </section>
   );

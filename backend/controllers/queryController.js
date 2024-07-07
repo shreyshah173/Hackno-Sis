@@ -1,6 +1,6 @@
 const Query = require('../models/Query');
 const Groq = require("groq-sdk");
-const groq = new Groq({ apiKey: "API_KEY" });
+const groq = new Groq({ apiKey: "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" });
 
 
 // Example controller functions
