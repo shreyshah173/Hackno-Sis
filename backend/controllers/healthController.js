@@ -25,7 +25,7 @@ exports.submitQuestionnaire = async (req, res) => {
 exports.getResponse = (req, res) => {
   const { status,userId } = req.body;
   const response = 'ai-response'; //from ai
-  const upstatus = false; // from ai
+  const upstatus = false; // from ai // change this for new ouput #khushi
 
   if (upstatus) {
     res.json({ response: response,nstatus:true });
@@ -39,7 +39,7 @@ exports.submitAdditionalQuestion = async (req, res) => {
     const { userId, question } = req.body;
     const response = 'this is your second time dude'; //from ai
     const additionalQuestion = new AdditionalQuestions({ userId, question });
-    const upstatus = false; // from ai
+    const upstatus = false; // from ai // change this for new ouput #khushi
     await additionalQuestion.save();
     if (upstatus) {
       res.json({ response: response,nstatus:true });
