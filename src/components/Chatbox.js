@@ -5,8 +5,8 @@ const Chatbox = ({ userid, index, status }) => {
   const [chats, setChats] = useState([]);
   const [query, setQuery] = useState('');
   const [queries, setQueries] = useState([]);
+  const [file, setFile] = useState(null);
   const chatHistoryRef = useRef(null);
-  // console.log(userid, index);
 
   useEffect(() => {
     fetchChats();
@@ -23,7 +23,6 @@ const Chatbox = ({ userid, index, status }) => {
     try {
       const response = await axios.get('http://localhost:5000/api/chats');
       const filteredChats = response.data.filter(chat => chat.userid === userid && chat.index === index);
-      
       setChats(filteredChats);
     } catch (error) {
       console.error('Error fetching chats:', error);
@@ -41,29 +40,53 @@ const Chatbox = ({ userid, index, status }) => {
 
   const handleQuerySubmit = async (e) => {
     e.preventDefault();
-    if (!query.trim()) return;
+    if (!query.trim() && !file) return;
 
     try {
-      const newChat = {
-        message: query,
-        sentbyuser: true,
-        created_at: new Date(),
-        index: index,
-        userid: userid
-      };
-      await axios.post('http://localhost:5000/api/chats', newChat);
-      setChats([...chats, newChat]);
+      if (query.trim()) {
+        const newChat = {
+          message: query,
+          sentbyuser: true,
+          created_at: new Date(),
+          index: index,
+          userid: userid
+        };
+        await axios.post('http://localhost:5000/api/chats', newChat);
+        setChats([...chats, newChat]);
 
-      const newQuery = {
-        currQuery: query
-      };
-      await axios.post('http://localhost:5000/api/queries', newQuery);
+        const newQuery = {
+          currQuery: query
+        };
+        await axios.post('http://localhost:5000/api/queries', newQuery);
 
-      setQuery('');
-      await waitForResponse();
+        setQuery('');
+        await waitForResponse();
+        fetchChats();
+        setQueries([]);
+      }
 
-      fetchChats();
-      setQueries([]);
+      if (file) {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const response = await axios.post('http://localhost:5000/api/queries/chat-with-document', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+
+        const newChat = {
+          message: response.data.response,
+          sentbyuser: false,
+          created_at: new Date(),
+          index: index,
+          userid: userid
+        };
+        await axios.post('http://localhost:5000/api/chats', newChat);
+        setChats([...chats, newChat]);
+        setFile(null);
+        fetchChats();
+      }
 
     } catch (error) {
       console.error('Error submitting query:', error);
@@ -86,9 +109,8 @@ const Chatbox = ({ userid, index, status }) => {
           await axios.post('http://localhost:5000/api/chats', newChat);
           setChats(prevChats => [...prevChats, newChat]);
           await axios.delete('http://localhost:5000/api/queries');
-          // Check if the topic with the current index and userid exists
-          const response = await axios.get('http://localhost:5000/api/topics');
-          const filteredTopics = response.data.filter(topic => topic.userid === userid && topic.index === index);
+          const topicsResponse = await axios.get('http://localhost:5000/api/topics');
+          const filteredTopics = topicsResponse.data.filter(topic => topic.userid === userid && topic.index === index);
           if (filteredTopics.length === 0) {
             const newTopic = {
               topicname: `Topic ${index}`,
@@ -96,7 +118,6 @@ const Chatbox = ({ userid, index, status }) => {
               userid: userid
             };
             await axios.post('http://localhost:5000/api/topics', newTopic);
-            // Reload the component without a full page reload
             fetchChats();
           }
           break;
@@ -149,7 +170,11 @@ const Chatbox = ({ userid, index, status }) => {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Type your message here..."
-            required
+          />
+          <input
+            type="file"
+            onChange={(e) => setFile(e.target.files[0])}
+            style={styles.fileInput}
           />
           <button style={styles.button} type="submit"><i className="fa fa-arrow-circle-up" aria-hidden="true"></i></button>
         </form>
@@ -157,8 +182,6 @@ const Chatbox = ({ userid, index, status }) => {
     </div>
   );
 };
-
-
 
 const styles = {
   container: {
@@ -179,7 +202,6 @@ const styles = {
     backgroundColor: 'white',
     borderRadius: '8px',
     overflow: 'hidden',
-    
   },
   chatHistory: {
     flex: 1,
@@ -225,7 +247,7 @@ const styles = {
     borderRadius: '15px',
     marginLeft: '170px',
     borderTop: '1px solid',
-    backgroundColor: 'rgb(249, 249, 249)', // Footer background color
+    backgroundColor: 'rgb(249, 249, 249)',
   },
   input: {
     flex: 1,
@@ -249,10 +271,14 @@ const styles = {
     cursor: 'pointer',
     outline: 'none',
   },
+  fileInput: {
+    marginLeft: '10px',
+    fontSize: '16px',
+  },
   emptyStateContainer: {
     textAlign: 'center',
     padding: '75px',
-    color: 'rgb(30, 30, 30)'
+    color: 'rgb(30, 30, 30)',
   },
   cardsContainer: {
     display: 'flex',
@@ -268,9 +294,8 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    boxShadow: '0 2px 4px rgba(2, 151, 255, 0.5)', // #0297FF box shadow
+    boxShadow: '0 2px 4px rgba(2, 151, 255, 0.5)',
   },
 };
 
 export default Chatbox;
-
