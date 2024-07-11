@@ -78,7 +78,7 @@ const ChatSidebar = ({ setIndex, userid }) => {
       </div>
       <ul>
         {topics.map(topic => (
-          <li type='none' key={topic._id} onClick={() => setIndex(topic.index)}>
+          <li key={topic._id} onClick={() => setIndex(topic.index)}>
             <div className='chat-side'>
               {editTopicId === topic._id ? (
                 <>
@@ -87,8 +87,8 @@ const ChatSidebar = ({ setIndex, userid }) => {
                     value={editTopicName}
                     onChange={(e) => setEditTopicName(e.target.value)}
                   />
-                  <button onClick={handleUpdate}>Save</button>
-                  <button onClick={() => setEditTopicId(null)}>Cancel</button>
+                  <i onClick={handleUpdate} class="fa fa-floppy-o" aria-hidden="true"></i>
+                  <i onClick={() => setEditTopicId(null)} class="fa fa-ban" aria-hidden="true"></i>
                 </>
               ) : (
                 <>
