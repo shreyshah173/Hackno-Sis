@@ -35,43 +35,42 @@ function Navbar({ user, setUser }) {
                 <Link className="navbar-brand" to="#">Longevity<span>Ai</span></Link>
                 <div className="collapse navbar-collapse" id="navbarCollapse1">
                     <ul className="navbar-nav ml-auto">
-                        <li className="nav-item active"> <Link to={'/'} className="nav-link" href="#myCarousel">Home <span className="sr-only">(current)</span></Link> </li>
-                        <li className="nav-item"> <a className="nav-link" href="#benefits">Benefits</a> </li>
-                        <li className="nav-item"> <a className="nav-link" href="#about">About</a> </li>
-                        <li className="nav-item"> <a className="nav-link" href="#gallery">Gallery</a> </li>
-                        <li className="nav-item"> <a className="nav-link" href="#contact">Contact</a> </li>
-                        {user.loginStatus ? (
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/chat" >Chat</Link>
-                            </li>
-                        ) : (
-                            <li className="nav-item"></li>
+                        <li className={`nav-item ${location.pathname === '/' ? 'active' : ''}`}>
+                            <Link to={'/'} className="nav-link">Home <span className="sr-only">(current)</span></Link>
+                        </li>
+                        <li className={`nav-item ${location.pathname === '/benefits' ? 'active' : ''}`}>
+                            <Link to={'/benefits'} className="nav-link">Benefits</Link>
+                        </li>
+                        <li className={`nav-item ${location.pathname === '/about' ? 'active' : ''}`}>
+                            <Link to={'/about'} className="nav-link">About</Link>
+                        </li>
+                        <li className={`nav-item ${location.pathname === '/gallery' ? 'active' : ''}`}>
+                            <Link to={'/gallery'} className="nav-link">Gallery</Link>
+                        </li>
+                        <li className={`nav-item ${location.pathname === '/contact' ? 'active' : ''}`}>
+                            <Link to={'/contact'} className="nav-link">Contact</Link>
+                        </li>
+                        {user.loginStatus && (
+                            <>
+                                <li className={`nav-item ${location.pathname === '/chat' ? 'active' : ''}`}>
+                                    <Link className="nav-link" to="/chat">Chat</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/" onClick={handleLogout}>Logout</Link>
+                                </li>
+                                <li className={`nav-item ${location.pathname === '/profile' ? 'active' : ''}`}>
+                                    <Link className="nav-link" to="/profile">Profile</Link>
+                                </li>
+                                <div className="nav-item nav-link">
+                                    Hi, <b>{user.name}</b>
+                                </div>
+                            </>
                         )}
-                        {user.loginStatus ? (
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/" onClick={handleLogout}>Logout</Link>
-                            </li>
-                        ) : (
+                        {!user.loginStatus && (
                             <li className="nav-item">
                                 <Link className="nav-link" to="/login">Login</Link>
                             </li>
                         )}
-
-                        {user.loginStatus ? (
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/profile" >Profile</Link>
-                            </li>
-                        ) : (
-                            <li className="nav-item"></li>
-                        )}
-                        {user.loginStatus ? (
-                            <div className="nav-item nav-link">
-                                Hi, <b>{user.name}</b>
-                            </div>
-                        ) : (
-                            <li className="nav-item"></li>
-                        )}
-
                     </ul>
                 </div>
             </div>
